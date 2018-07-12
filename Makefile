@@ -12,7 +12,7 @@ DIST_DIR  := $(CURDIR)/dist
 .NOTPARALLEL:
 .PHONY: all
 
-all: ubuntu18.04 ubuntu16.04 ubuntu14.04 debian9 debian8 centos7 amzn2 amzn1
+all: ubuntu18.04 ubuntu16.04 ubuntu14.04 debian9 debian8 centos7 amzn2 amzn1 opensuse_leap15.1
 
 ubuntu18.04: $(addsuffix -ubuntu18.04, 18.09.2 18.06.2 18.09.1 18.09.0 18.06.1 18.06.0 18.03.1 17.12.1)
 
@@ -29,6 +29,8 @@ centos7: $(addsuffix -centos7, 18.09.2.ce 18.06.2.ce 18.09.1.ce 18.09.0.ce 18.06
 amzn2: $(addsuffix -amzn2, 18.06.2-ce 18.06.1-ce 18.03.1-ce 17.06.2-ce)
 
 amzn1: $(addsuffix -amzn1, 18.06.2-ce 18.06.1-ce 18.03.1-ce 17.12.1-ce 17.09.1-ce 17.06.2-ce 17.03.2-ce)
+
+opensuse_leap15.1: $(addsuffix -opensuse_leap15.1, 18.09.6_ce 18.09.1_ce)
 
 18.09.2-ubuntu18.04: ARCH := amd64
 18.09.2-ubuntu18.04:
@@ -561,4 +563,17 @@ amzn1: $(addsuffix -amzn1, 18.06.2-ce 18.06.1-ce 18.03.1-ce 17.12.1-ce 17.09.1-c
 	$(MKDIR) -p $(DIST_DIR)/amzn1/$(ARCH)
 	$(DOCKER) run  --cidfile $@.cid "nvidia/nvidia-docker2/amzn:1-docker$*"
 	$(DOCKER) cp $$(cat $@.cid):/dist/. $(DIST_DIR)/amzn1/$(ARCH)
+	$(DOCKER) rm $$(cat $@.cid) && rm $@.cid
+
+%_ce-opensuse_leap15.1: ARCH := x86_64
+%_ce-opensuse_leap15.1:
+	$(DOCKER) build --build-arg VERSION_ID="15.1" \
+                        --build-arg RUNTIME_VERSION="$(RUNTIME_VERSION)-1.docker$*" \
+                        --build-arg DOCKER_VERSION="docker = $*_ce" \
+                        --build-arg PKG_VERS="$(VERSION)" \
+                        --build-arg PKG_REV="$(PKG_REV).docker$*_ce" \
+                        -t "nvidia/nvidia-docker2/opensuse/leap:15.1-docker$*_ce" -f Dockerfile.opensuse_leap .
+	$(MKDIR) -p $(DIST_DIR)/opensuse_leap15.1/$(ARCH)
+	$(DOCKER) run  --cidfile $@.cid "nvidia/nvidia-docker2/opensuse/leap:15.1-docker$*_ce"
+	$(DOCKER) cp $$(cat $@.cid):/dist/. $(DIST_DIR)/opensuse_leap15.1/$(ARCH)
 	$(DOCKER) rm $$(cat $@.cid) && rm $@.cid

@@ -85,6 +85,22 @@ sudo yum install -y nvidia-container-runtime-hook
 docker run --rm nvidia/cuda:9.0-base nvidia-smi
 ```
 
+#### openSUSE Leap 15.0 (docker-ce)
+
+```sh
+# Add the package repositories
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+zypper ar https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.repo nvidia-docker
+
+# Install nvidia-docker2 and restart the Docker daemon
+sudo zypper install -y nvidia-docker2
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+
+# Test nvidia-smi with the latest official CUDA image
+docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+```
+
 #### Other distributions and architectures
 
 Look at the [Installation section](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) of the wiki.

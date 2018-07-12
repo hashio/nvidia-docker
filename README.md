@@ -88,7 +88,7 @@ sudo yum install -y nvidia-container-runtime-hook
 docker run --rm nvidia/cuda:9.0-base nvidia-smi
 ```
 
-#### openSUSE Leap 15.1 (docker-ce)
+#### openSUSE Leap 15.0/15.1 (docker-ce)
 
 ```sh
 # Add the package repositories

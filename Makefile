@@ -32,7 +32,7 @@ amzn1: $(addsuffix -amzn1, 18.06.2-ce 18.06.1-ce 18.03.1-ce 17.12.1-ce 17.09.1-c
 
 opensuse_leap15.1: $(addsuffix -opensuse_leap15.1, 18.09.6_ce 18.09.1_ce)
 
-opensuse_leap15.0: $(addsuffix -opensuse_leap15.0, 17.09.1_ce)
+opensuse_leap15.0: $(addsuffix -opensuse_leap15.0, 18.09.1_ce)
 
 18.09.2-ubuntu18.04: ARCH := amd64
 18.09.2-ubuntu18.04:
@@ -592,4 +592,3 @@ opensuse_leap15.0: $(addsuffix -opensuse_leap15.0, 17.09.1_ce)
 	$(DOCKER) run  --cidfile $@.cid "nvidia/nvidia-docker2/opensuse/leap:15.0-docker$*_ce"
 	$(DOCKER) cp $$(cat $@.cid):/dist/. $(DIST_DIR)/opensuse_leap15.0/$(ARCH)
 	$(DOCKER) rm $$(cat $@.cid) && rm $@.cid
-

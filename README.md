@@ -19,6 +19,9 @@ An introduction to the NVIDIA Container Runtime is also covered in our [blog pos
 **If you have a custom `/etc/docker/daemon.json`, the `nvidia-docker2` package might override it.**  
 
 #### Ubuntu 14.04/16.04/18.04, Debian Jessie/Stretch
+
+Ubuntu will install `docker.io` by default which isn't the latest version of Docker Engine. This implies that you will need to pin the version of nvidia-docker. [See more information here](https://github.com/NVIDIA/nvidia-docker/wiki/Frequently-Asked-Questions#how-do-i-install-20-if-im-not-using-the-latest-docker-version).
+
 ```sh
 # If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
 docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
@@ -98,12 +101,25 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 
 # Test nvidia-smi with the latest official CUDA image
-docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
+docker run --runtime=nvidia --rm nvidia/cuda:9.0-base nvidia-smi
 ```
 
 #### Other distributions and architectures
 
 Look at the [Installation section](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)) of the wiki.
+
+## Changelog
+
+New nvidia-docker packages have been released for docker 18.09.2 and 18.06.2 addressing [CVE-2019-5736](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2019-5736)
+
+Update nvidia-docker to adress runc critical vulnerability that allows specially-crafted containers to gain administrative privileges on the host.
+```sh
+# On Ubuntu/Debian
+sudo apt upgrade
+
+# On Centos/RHEL/Amazon Linux
+sudo yum upgrade
+```
 
 ## Issues and Contributing
 

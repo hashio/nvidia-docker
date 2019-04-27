@@ -1,0 +1,12 @@
+{
+    "default-runtime": "oci",
+    "runtimes": {
+        "oci": {
+            "path": "/usr/sbin/docker-runc"
+        },
+        "nvidia": {
+            "path": "nvidia-container-runtime",
+            "runtimeArgs": []
+        }
+    }
+}

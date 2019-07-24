@@ -32,9 +32,9 @@ amzn1: $(addsuffix -amzn1, 18.06.2-ce 18.06.1-ce 18.03.1-ce 17.12.1-ce 17.09.1-c
 
 opensuse_leap15.1: $(addsuffix -opensuse_leap15.1, 18.09.6_ce 18.09.1_ce)
 
-opensuse_leap15.0: $(addsuffix -opensuse_leap15.0, 18.09.1_ce)
+opensuse_leap15.0: $(addsuffix -opensuse_leap15.0, 18.09.6_ce 18.09.1_ce)
 
-sles12sp3: $(addsuffix -sles12sp3, 18.09.1_ce)
+sles12sp3: $(addsuffix -sles12sp3, 18.09.6_ce 18.09.1_ce)
 
 18.09.2-ubuntu18.04: ARCH := amd64
 18.09.2-ubuntu18.04:

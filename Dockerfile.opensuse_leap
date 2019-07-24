@@ -22,7 +22,7 @@ ENV DIST_DIR=/tmp/nvidia-container-runtime-$PKG_VERS/SOURCES
 RUN mkdir -p $DIST_DIR /dist
 
 COPY nvidia-docker $DIST_DIR
-COPY opensuse_leap/* $DIST_DIR
+COPY opensuse_leap/* $DIST_DIR/
 
 WORKDIR $DIST_DIR/..
 COPY rpm .

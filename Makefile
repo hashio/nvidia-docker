@@ -590,7 +590,7 @@ sles12sp3: $(addsuffix -sles12sp3, 18.09.6_ce 18.09.1_ce)
                         --build-arg PKG_VERS="$(VERSION)" \
                         --build-arg PKG_REV="$(PKG_REV).docker$*_ce" \
                         -t "nvidia/nvidia-docker2/opensuse/leap:15.0-docker$*_ce" -f Dockerfile.opensuse_leap .
-	$(MKDIR) -p $(DIST_DIR)/opensuse_leap15.1/$(ARCH)
+	$(MKDIR) -p $(DIST_DIR)/opensuse_leap15.0/$(ARCH)
 	$(DOCKER) run  --cidfile $@.cid "nvidia/nvidia-docker2/opensuse/leap:15.0-docker$*_ce"
 	$(DOCKER) cp $$(cat $@.cid):/dist/. $(DIST_DIR)/opensuse_leap15.0/$(ARCH)
 	$(DOCKER) rm $$(cat $@.cid) && rm $@.cid
